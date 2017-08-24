@@ -1,0 +1,14 @@
+
+html:
+  - div @class=content:
+    - "Welcome to"
+    - a @href=http://www.x.yz @maja:repeat=varname :
+      - Some Link
+    - img @wurst:
+    - maja:md:
+       - |
+          # Some extended
+          Code here
+
+    - call:someTemplate:
+      - p:wurst:
