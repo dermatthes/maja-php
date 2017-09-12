@@ -17,7 +17,7 @@
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->elemToDirective["go-macro"] = $this;
+            $bag->elemToDirective["maja:macro"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 
@@ -29,21 +29,9 @@
         public function exec(GoElementNode $node, array &$scope, &$output, GoDirectiveExecBag $execBag)
         {
             $name = $node->attributes["name"];
+            $params = explode(" ", $node->attributes["params"]);
 
-            if ( ! preg_match ("|([a-z0-9_]+)\\s*\\((.*)\\)|i", trim ($name), $matches)) {
-                throw new \InvalidArgumentException("Cannot parse macro name='$name'");
-            }
-
-            $macroName = $matches[1];
-            $paramMap = [];
-
-            $paramIndex = 0;
-            foreach (explode (",", $matches[2]) as $curParam) {
-                $curParam = trim ($curParam);
-                $paramMap[$paramIndex++] = $curParam;
-            }
-            
-            $execBag->macros[$macroName] = [$node, $paramMap];
+            $execBag->macros[$name] = [$node->childs, $params];
             return false;
         }
     }

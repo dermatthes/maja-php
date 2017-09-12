@@ -55,10 +55,22 @@ html:
 </div>
 ```
 
-### Text Usage
+### Text Usage (Todo)
 
 ```
 <!-- maja:if="<condition>" -->
 
 <!-- /maja:if -->
+```
+
+### Macros
+
+```
+<maja:macro name="printNavi" params="node">
+    {{ node.name }}
+</maja:macro>
+
+<call:printNavi>
+    <p:node>Some name</p:node>
+</call:printNavi>
 ```

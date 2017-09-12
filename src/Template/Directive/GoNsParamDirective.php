@@ -35,7 +35,7 @@
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->elemNsToDirective["param"] = $this;
+            $bag->elemNsToDirective["p"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 

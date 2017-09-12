@@ -1,0 +1,17 @@
+<html>
+
+    <maja:macro name="printNode" params="node">
+        <ul>
+            {{ node.name }}
+<!--     --><li maja:foreach="node.childs as curChild">
+                <call:printNode>
+                    <p:node select="curChild"/>
+                </call:printNode>
+            </li>
+        </ul>
+    </maja:macro>
+
+    <call:printNode>
+        <p:node select="tree"/>
+    </call:printNode>
+</html>

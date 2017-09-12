@@ -103,7 +103,18 @@
                 }
             }
 
-            $ret = ($this->callback)($callName, $params);
+            if (isset($execBag->macros[$callName])) {
+                $macro = $execBag->macros[$callName];
+                $ret = "";
+                foreach ($macro[0] as $cur) {
+                    $ret .= $cur->render($params, $execBag);
+                }
+
+            } else {
+                $ret = ($this->callback)($callName, $params);
+            }
+
+
 
             if ($as !== null) {
                 $scope[$as] = $ret;

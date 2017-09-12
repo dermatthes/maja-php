@@ -65,7 +65,6 @@
             $this->addDirective(new GoCallMacroDirective());
             $this->addDirective(new GoDumpDirective());
             $this->addDirective(new GoInlineTextDirective());
-            $this->addDirective(new GoParamDirective());
             $this->addDirective(new GoStructDirective());
             $this->addDirective(new GoTextDirective());
             $this->addDirective(new GoNsCallDirective());
