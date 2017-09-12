@@ -22,7 +22,7 @@
         
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->attrToDirective["go-repeat"] = $this;
+            $bag->attrToDirective["maja:repeat"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 
@@ -32,17 +32,18 @@
 
         public function exec(GoElementNode $node, array &$scope, &$output, GoDirectiveExecBag $execBag)
         {
-            $stmt = $node->attributes["go-repeat"];
+            $stmt = $node->attributes["maja:repeat"];
 
             $output = "";
 
-            if (preg_match ('/^(.*)\s+index\s+([a-z0-9_]+)$/i', trim ($stmt), $matches)) {
-                $data = $execBag->expressionEvaluator->eval($matches[1], $scope);
+            if (preg_match ('/^(?<exp>.*)(\s+indexBy\s+(?<index>[a-z0-9_]+))$/i', trim ($stmt), $matches)) {
+                $data = $execBag->expressionEvaluator->eval($matches["exp"], $scope);
                 for ($i = 0; $i < $data; $i++) {
 
-                    $scope[$matches[2]] = $i;
+                    if (isset ($matches["index"]))
+                        $scope[$matches["index"]] = $i;
                     $clone = clone $node;
-                    $clone->attributes["go-repeat"] = "";
+                    $clone->attributes["maja:repeat"] = "";
                     try {
                         $output .= $clone->run($scope, $execBag, true);
                     } catch (GoBreakLoopException $e) {

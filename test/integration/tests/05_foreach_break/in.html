@@ -1,0 +1,10 @@
+<html>
+    <div maja:foreach="a as i => cur">
+        OUT {{ i }}: {{ cur }}
+        <maja:break maja:if="i > 0"/>
+    </div>
+    <div maja:foreach="a as i => cur">
+        <maja:continue maja:if="i == 0"/>
+        OUT {{ i }}: {{ cur }}
+    </div>
+</html>

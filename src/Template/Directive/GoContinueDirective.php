@@ -19,7 +19,7 @@
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->elemToDirective["go-continue"] = $this;
+            $bag->elemToDirective["maja:continue"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 

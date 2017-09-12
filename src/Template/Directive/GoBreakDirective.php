@@ -20,7 +20,7 @@
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->elemToDirective["go-break"] = $this;
+            $bag->elemToDirective["maja:break"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 

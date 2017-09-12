@@ -9,9 +9,11 @@
     namespace Html5\Template;
     
     use Html5\Template\Directive\GoBindDirective;
+    use Html5\Template\Directive\GoBreakDirective;
     use Html5\Template\Directive\GoCallDirective;
     use Html5\Template\Directive\GoCallMacroDirective;
     use Html5\Template\Directive\GoClassDirective;
+    use Html5\Template\Directive\GoContinueDirective;
     use Html5\Template\Directive\GoDirective;
     use Html5\Template\Directive\GoDumpDirective;
     use Html5\Template\Directive\GoExtendsDirective;
@@ -56,7 +58,6 @@
 
             $this->addDirective(new GoIfDirective());
             $this->addDirective(new GoForeachDirective());
-            $this->addDirective(new GoBindDirective());
             $this->addDirective(new GoHtmlDirective());
             $this->addDirective(new GoClassDirective());
             $this->addDirective(new GoRepeatDirective());
@@ -66,12 +67,12 @@
             $this->addDirective(new GoInlineTextDirective());
             $this->addDirective(new GoParamDirective());
             $this->addDirective(new GoStructDirective());
-            $this->addDirective(new GoExtendsDirective());
-            $this->addDirective(new GoCallDirective());
             $this->addDirective(new GoTextDirective());
             $this->addDirective(new GoNsCallDirective());
             $this->addDirective(new GoNsParamDirective());
 
+            $this->addDirective(new GoBreakDirective());
+            $this->addDirective(new GoContinueDirective());
             $this->htmlReader = new HTMLReader();
         }
 
@@ -157,7 +158,10 @@
 
                     $newNode->useInlineTextDirective($this->directiveBag->textDirective);
 
-                    if ($newNode->ns !== null && isset ($this->directiveBag->elemNsToDirective[$newNode->ns])) {
+
+                    if ($newNode->ns !== null && isset ($this->directiveBag->elemToDirective["{$newNode->ns}:{$newNode->name}"])) {
+                        $newNode->useDirective($this->directiveBag->elemToDirective["{$newNode->ns}:{$newNode->name}"]);
+                    } elseif ($newNode->ns !== null && isset ($this->directiveBag->elemNsToDirective[$newNode->ns])) {
                         $newNode->useDirective($this->directiveBag->elemNsToDirective[$newNode->ns]);
                     } else if (isset ($this->directiveBag->elemToDirective[$newNode->name])) {
                         $newNode->useDirective($this->directiveBag->elemToDirective[$newNode->name]);

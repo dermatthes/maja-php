@@ -5,7 +5,7 @@
 | Construct | Description |
 |-----------|-------------|
 | `@maja:if`                  | Condition   |
-| `@maja:repeat`              | Loop     |
+| `@maja:repeat`              | Loop [optional: `indexBy <indexName>` |
 | `@maja:foreach`             | Loop    |
 | `@maja:attributes`          | Add Attributes |
 | `@maja:class`               | Add CSS Classes |
@@ -15,7 +15,7 @@
 | `maja:use-macro [@name] [@p:<name>]`  | Run the macro  |
 | `maja:html [@name]`         | Output unescaped HTMl |
 | `maja:text [@name]`         | Output escaped Text   |
-| `maja:continue [@maja:if]`  | (Inside loop) Continue with next element |
+| `maja:continue [@maja:if]`     | (Inside loop) Continue a loop  |
 | `maja:break [@maja:if]`     | (Inside loop) Break a loop  |
 | `maja:define [@as] [@parse=YAML|JSON|MD|TEXT]` | Define a variable in local scope | 
 | `call:<method> [@as] [@p:<name>]` | Call an api function |
@@ -51,7 +51,14 @@ html:
 ### Loops
 
 ```
-<div maja:repeat="times [index]">
+<div maja:repeat="times [indexBy index]">
 </div>
 ```
 
+### Text Usage
+
+```
+<!-- maja:if="<condition>" -->
+
+<!-- /maja:if -->
+```

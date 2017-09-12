@@ -20,7 +20,7 @@
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->attrToDirective["go-foreach"] = $this;
+            $bag->attrToDirective["maja:foreach"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
         
@@ -30,7 +30,7 @@
 
         public function exec(GoElementNode $node, array &$scope, &$output, GoDirectiveExecBag $execBag)
         {
-            $stmt = $node->attributes["go-foreach"];
+            $stmt = $node->attributes["maja:foreach"];
 
             $output = "";
 
@@ -42,7 +42,7 @@
                 foreach ($data as $curElem) {
                     $scope[$matches[2]] = $curElem;
                     $clone = clone $node;
-                    $clone->attributes["go-foreach"] = "";
+                    $clone->attributes["maja:foreach"] = "";
                     try {
                         $output .= $clone->run($scope, $execBag, true);
                     } catch (GoBreakLoopException $e) {
@@ -50,6 +50,7 @@
                     } catch (GoContinueLoopException $e) {
                         continue;
                     }
+
                 }
                 return $output;
             } else if (preg_match ('/([a-z0-9_\\.]+)\s+as\s+([a-z0-9_]+)\s*=\\>\s*([a-z0-9_]+)/i', trim ($stmt), $matches)) {
@@ -60,7 +61,7 @@
                     $scope[$matches[2]] = $key;
                     $scope[$matches[3]] = $val;
                     $clone = clone $node;
-                    $clone->attributes["go-foreach"] = "";
+                    $clone->attributes["maja:foreach"] = "";
                     try {
                         $output .= $clone->run($scope, $execBag, true);
                     } catch (GoBreakLoopException $e) {
