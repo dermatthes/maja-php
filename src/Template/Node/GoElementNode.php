@@ -55,6 +55,26 @@
         }
 
 
+        public function getText () : string {
+            if ($this instanceof GoTextNode)
+                return $this->text;
+            if ($this instanceof GoCommentNode)
+                return $this->text;
+
+            if (count($this->childs) > 0) {
+                $child = $this->childs[0];
+
+                if ($child instanceof GoTextNode) {
+                    return $child->text;
+                }
+                if ($child instanceof GoCommentNode) {
+                    return $child->text;
+                }
+            }
+            return "";
+        }
+
+
         public function render(array &$scope, GoDirectiveExecBag $execBag) {
             $ns = "";
             if ($this->ns !== null)

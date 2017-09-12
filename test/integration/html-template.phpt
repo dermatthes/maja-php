@@ -10,6 +10,8 @@ require __DIR__ . "/../../vendor/autoload.php";
 \Tester\Environment::setup();
 
 
+$start = microtime(true);
+
 $dirs = glob(__DIR__ . "/tests/*");
 $tt = new HtmlTemplate();
 foreach ($dirs as $dir) {
@@ -19,3 +21,5 @@ foreach ($dirs as $dir) {
     Assert::equal(file_get_contents($dir . "/expected.html"), $out, "Error in check: {$dir}");
     echo " [OK]";
 }
+
+echo "\nDuration: " . number_format((microtime(true) - $start), 3);

@@ -10,7 +10,9 @@
     namespace Html5\Template\Directive;
 
 
+    use Html5\Template\DataParser\GoDataParser;
     use Html5\Template\Expression\GoExpressionEvaluator;
+    use Prophecy\Exception\InvalidArgumentException;
 
     class GoDirectiveExecBag {
 
@@ -29,4 +31,19 @@
         public $scopePrototype = [];
 
         public $dataToReturnScope = [];
+
+
+        /**
+         * @var GoDataParser[]
+         */
+        public $dataTextParsers = [];
+
+        public function dataParse ($input, $parse) {
+            if ($parse === null)
+                return $input;
+            if ( ! isset ($this->dataTextParsers[strtoupper($parse)]))
+                throw new InvalidArgumentException("Unrecognized DataParser: parse='$parse': '$parse' is not defined");
+            return $this->dataTextParsers[strtoupper($parse)]->parse($input);
+        }
+
     }

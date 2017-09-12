@@ -11,14 +11,13 @@
 | `@maja:class`               | Add CSS Classes |
 | `@maja:html`                | Inject unescaped Html |
 | `@maja:text`                | Inject escaped text  |
-| `maja:define-macro [@name] [@params]` | Define a macro |
-| `maja:use-macro [@name] [@p:<name>]`  | Run the macro  |
-| `maja:html [@name]`         | Output unescaped HTMl |
-| `maja:text [@name]`         | Output escaped Text   |
+| `maja:macro [@name] [@params]` | Define a macro |
+| `maja:html [@select]`         | Output unescaped HTMl |
+| `maja:text [@select]`         | Output escaped Text   |
 | `maja:continue [@maja:if]`     | (Inside loop) Continue a loop  |
 | `maja:break [@maja:if]`     | (Inside loop) Break a loop  |
-| `maja:define [@as] [@parse=YAML|JSON|MD|TEXT]` | Define a variable in local scope | 
-| `call:<method> [@as] [@p:<name>]` | Call an api function |
+| `maja:define [@as] [@parse=YAML|JSON|MD|TEXT] [@select='expr']` | Define a variable in local scope | 
+| `call:<method> [@as] [@p:<name>]` | Call an api function or macro |
 | `p:<name>`                  | Define a Parameter |
 |                             |                    |
 | `maja:dump [@name]`         | Debug: Print out all variables available |
@@ -51,16 +50,8 @@ html:
 ### Loops
 
 ```
-<div maja:repeat="times [indexBy index]">
+<div maja:repeat="expr [indexBy index]">
 </div>
-```
-
-### Text Usage (Todo)
-
-```
-<!-- maja:if="<condition>" -->
-
-<!-- /maja:if -->
 ```
 
 ### Macros

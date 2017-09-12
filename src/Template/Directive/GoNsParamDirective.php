@@ -56,7 +56,7 @@
                 $select = $node->attributes["select"];
 
             if ( ! preg_match ("|([a-z0-9_-]+)|i", $name)) {
-                throw new \InvalidArgumentException("Invalid <param:name ='param:$name': Allowed [a-zA-Z0-9_-]+");
+                throw new \InvalidArgumentException("Invalid <p:$name: Allowed [a-zA-Z0-9_-]+");
             }
 
             $returnData = null;

@@ -80,7 +80,6 @@
         public function build(string $inputTemplateData, string $templateName="unnamed") : GoDocumentNode {
             $this->mParser->loadHtml($inputTemplateData);
             $template = $this->mParser->parse($templateName);
-            $template->setExecBag($this->mExecBag);
             return $template;
         }
 
@@ -93,7 +92,14 @@
             }
 
             $template = $this->build($inputTemplateData, $templateName);
+            /*
+            $cacheFile = "/tmp/cache." . md5($inputTemplateData);
+            if (file_exists($cacheFile))
+                $template = unserialize(file_get_contents($cacheFile));
+            else
+                file_put_contents($cacheFile, serialize());
 
+            */
 
             $ret = $template->run($scope, $this->mExecBag);
             if (is_array($ret))

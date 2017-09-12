@@ -20,6 +20,7 @@
         public function register(GoTemplateDirectiveBag $bag)
         {
             $bag->attrToDirective["maja:html"] = $this;
+            $bag->elemToDirective["maja:html"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 
@@ -31,7 +32,13 @@
         public function exec(GoElementNode $node, array &$scope, &$output, GoDirectiveExecBag $execBag)
         {
 
-            $expression = $node->attributes["maja:html"];
+            if ($node->ns . ":" .  $node->name === "maja:html") {
+                $expression = $node->attributes["select"];
+            } else {
+                $expression = $node->attributes["maja:html"];
+            }
+
+
 
             $val = $execBag->expressionEvaluator->eval($expression, $scope);
 

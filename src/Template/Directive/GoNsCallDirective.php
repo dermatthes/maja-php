@@ -74,32 +74,9 @@
 
             } else {
                 try {
-                    $code = "";
-                    if (count($node->childs) > 0) {
-                        $child = $node->childs[0];
-
-                        if ($child instanceof GoTextNode) {
-                            $code = $child->text;
-                        }
-                        if ($child instanceof GoCommentNode) {
-                            $code = $child->text;
-                        }
-                    }
-                    if ($parse == "JSON") {
-                        $params = json_decode($code, false);
-                        if ($params === null)
-                            throw new ParseException("Cannot parse json string");
-                        $arrVal = [];
-                        foreach ($params as $key => $value) {
-                            $arrVal[$key] = $value;
-                        }
-                        $params = $arrVal;
-                    } else if ($parse == "YAML") {
-                        $params = $execBag->expressionEvaluator->yaml($code, $scope);
-                    }
-
+                    $params = $execBag->dataParse($node->getText(), $parse);
                 } catch (ParseException $e) {
-                    throw new ParseException("Cannot parse: {$e->getMessage()}\n{$child->text}", -1, null, null, $e);
+                    throw new ParseException("Cannot parse: {$e->getMessage()}\n{$node->getText()}", -1, null, null, $e);
                 }
             }
 
