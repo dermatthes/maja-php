@@ -5,7 +5,7 @@ namespace Maja;
 
 use Html5\Template\Directive\GoDirectiveExecBag;
 use Html5\Template\GoYamlTemplateParser;
-use Html5\Template\HtmlTemplate;
+use Html5\Template\MajaFacade;
 use Symfony\Component\Yaml\Yaml;
 use Tester\Environment;
 
@@ -18,7 +18,7 @@ Environment::setup();
 
 print_r (Yaml::parse(file_get_contents(__DIR__ . "/input.yml")));
 
-$t = new HtmlTemplate();
+$t = new MajaFacade();
 
 $parser = new GoYamlTemplateParser();
 $parser->loadYaml(file_get_contents(__DIR__ . "/input.yml"));

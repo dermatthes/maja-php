@@ -6,12 +6,15 @@
      * Time: 23:56
      */
 
-    namespace Html5\Template;
+    namespace Html5\Template\Opt;
     
     use Html5\Template\Directive\GoDirective;
     use Html5\Template\Directive\GoInlineTextDirective;
 
     class GoTemplateDirectiveBag {
+
+
+
 
         /**
          * @var GoDirective[]

@@ -7,7 +7,7 @@
      */
 
 
-    namespace Html5\Template\Directive;
+    namespace Html5\Template\Opt;
 
 
     use Html5\Template\DataParser\GoDataParser;

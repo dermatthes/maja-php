@@ -11,8 +11,8 @@
 
 
     use Html5\Template\Directive\Ex\GoReturnDataException;
-    use Html5\Template\Directive\GoDirectiveExecBag;
     use Html5\Template\Exception\TemplateRuntimeException;
+    use Html5\Template\Opt\GoDirectiveExecBag;
 
     class GoDocumentNode implements GoNode {
 

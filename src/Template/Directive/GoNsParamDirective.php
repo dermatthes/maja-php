@@ -11,7 +11,8 @@
     use Doctrine\Instantiator\Exception\InvalidArgumentException;
     use Html5\Template\Directive\Ex\GoReturnDataException;
     use Html5\Template\Node\GoElementNode;
-    use Html5\Template\GoTemplateDirectiveBag;
+    use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Opt\GoTemplateDirectiveBag;
 
 
     /**

@@ -9,14 +9,14 @@
     namespace Html5\Template;
 
    
-    use Html5\Template\Datastore\GoTemplateStore;
-    use Html5\Template\Directive\GoDirective;
-    use Html5\Template\Directive\GoDirectiveExecBag;
+    use Html5\Template\Directive\GoNsCallDirective;
     use Html5\Template\Expression\GoExpressionEvaluator;
-    use Html5\Template\Expression\Scope;
     use Html5\Template\Node\GoDocumentNode;
+    use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Plugin\GoBasePlugin;
+    use Html5\Template\Plugin\GoPlugin;
 
-    class HtmlTemplate
+    class MajaFacade
     {
 
         /**
@@ -36,34 +36,34 @@
         {
             $this->mParser = new GoHtmlTemplateParser();
             $this->mExecBag = new GoDirectiveExecBag(new GoExpressionEvaluator());
+            $this->addPlugin(new GoBasePlugin());
         }
 
 
 
-        public function addDirective(GoDirective $directive)
+        public function setSuperGlobals (array $superGlobals) : self
         {
-            $this->mParser->addDirective($directive);
-        }
-
-        public function getDirective(string $className) : GoDirective
-        {
-            return $this->mParser->getDirective($className);
-        }
-
-        public function getExpressionEvaluator () : GoExpressionEvaluator
-        {
-            return $this->mExecBag->expressionEvaluator;
-        }
-
-        public function setExpressionEvaluator(GoExpressionEvaluator $evaluator)
-        {
-            $this->mExecBag->expressionEvaluator = $evaluator;
+            $this->mExecBag->scopePrototype = $superGlobals;
+            return $this;
         }
 
 
-        public function setScopePrototype(array $scope)
+        public function addPlugin (GoPlugin $plugin) : self
         {
-            $this->mExecBag->scopePrototype = $scope;
+            $plugin->register($this->mExecBag, $this->mParser->getDirectiveBag());
+            return $this;
+        }
+
+        public function setCallHandler (callable $callback) : self
+        {
+            $this->mParser->getDirective(GoNsCallDirective::class)->setCallback($callback);
+            return $this;
+        }
+
+        public function addFunction ($name, callable $callback) : self
+        {
+            $this->mExecBag->expressionEvaluator->register($name, $callback);
+            return $this;
         }
 
 
@@ -107,34 +107,16 @@
             return $ret;
         }
 
-        public function renderStruct(string $inputTemplateData, array $scopeData, &$structOutputData = [], $templateName="unnamed") {
-
-            $scope = $this->mExecBag->scopePrototype;
-            foreach ($scopeData as $key => $val) {
-                $scope[$key] = $val;
-            }
-            $template = $this->build($inputTemplateData, $templateName);
-
-            $ret = $template->run($scope, $this->mExecBag);
-            if (is_string($ret))
-                throw new \InvalidArgumentException("renderStruct() must use go-struct. Use render() to return string data.");
-            return $ret;
-        }
-
 
         public function buildFile ($filename) : GoDocumentNode {
             return $this->build(file_get_contents($filename), $filename);
         }
 
-        public function renderHtmlFile($filename, array $scopeData = []) : string
+        public function renderHtmlFile(string $filename, array $scopeData = []) : string
         {
             return $this->render(file_get_contents($filename), $scopeData, $data, $filename);
         }
-        
-        public function renderStructHtmlFile($filename, array $scopeData = [])
-        {
-            return $this->renderStruct(file_get_contents($filename), $scopeData, $data, $filename);
-        }
+
 
 
     }

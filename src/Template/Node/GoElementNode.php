@@ -12,9 +12,9 @@
   
 
     use Html5\Template\Directive\GoDirective;
-    use Html5\Template\Directive\GoDirectiveExecBag;
     use Html5\Template\Directive\GoInlineTextDirective;
     use Html5\Template\Directive\GoPreDirective;
+    use Html5\Template\Opt\GoDirectiveExecBag;
 
     class GoElementNode implements GoNode {
         public $parent = null;

@@ -15,7 +15,8 @@
     use Html5\Template\Directive\Ex\GoBreakLoopException;
     use Html5\Template\Directive\Ex\GoContinueLoopException;
     use Html5\Template\Node\GoElementNode;
-    use Html5\Template\GoTemplateDirectiveBag;
+    use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Opt\GoTemplateDirectiveBag;
 
     class GoRepeatDirective implements GoPreDirective
     {

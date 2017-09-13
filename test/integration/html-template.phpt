@@ -13,7 +13,7 @@ require __DIR__ . "/../../vendor/autoload.php";
 $start = microtime(true);
 
 $dirs = glob(__DIR__ . "/tests/*");
-$tt = new HtmlTemplate();
+$tt = new MajaFacade();
 foreach ($dirs as $dir) {
     echo "\nTesting $dir...";
     $data = require ($dir . "/in.php");

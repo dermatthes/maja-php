@@ -10,7 +10,8 @@
 
 
     use Html5\Template\Directive\Ex\GoReturnDataException;
-    use Html5\Template\GoTemplateDirectiveBag;
+    use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Opt\GoTemplateDirectiveBag;
     use Html5\Template\Node\GoCommentNode;
     use Html5\Template\Node\GoElementNode;
     use Html5\Template\Node\GoTextNode;
@@ -32,7 +33,8 @@
 
         private $callback;
 
-        public function setCallback (callable  $fn) {
+        public function setCallback (callable  $fn)
+        {
             $this->callback = $fn;
         }
 
@@ -90,8 +92,6 @@
             } else {
                 $ret = ($this->callback)($callName, $params);
             }
-
-
 
             if ($as !== null) {
                 $scope[$as] = $ret;

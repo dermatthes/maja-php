@@ -9,7 +9,8 @@
     namespace Html5\Template\Directive;
    
     use Html5\Template\Node\GoElementNode;
-    use Html5\Template\GoTemplateDirectiveBag;
+    use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Opt\GoTemplateDirectiveBag;
 
     class GoMacroDirective implements GoDirective
     {

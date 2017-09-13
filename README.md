@@ -11,7 +11,7 @@ angularjs-like inline-templates for PHP7.
 > for cluster / platform usage.
 
 
-Gismo Template does not precompile any code. It generates the pages on the fly.
+Gismo Template does not precompile any code. It generates the pages on the fly. (Caching available)
 
 
 Features:

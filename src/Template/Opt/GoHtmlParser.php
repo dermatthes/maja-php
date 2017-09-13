@@ -10,7 +10,7 @@ namespace Html5\Template\Opt;
 
 
 use Html5\Template\Exception\TemplateParsingException;
-use Html5\Template\GoTemplateDirectiveBag;
+use Html5\Template\Opt\GoTemplateDirectiveBag;
 use Html5\Template\Node\GoCommentNode;
 use Html5\Template\Node\GoDocumentNode;
 use Html5\Template\Node\GoElementNode;

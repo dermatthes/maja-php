@@ -10,7 +10,8 @@
     namespace Html5\Template\Node;
 
 
-    use Html5\Template\Directive\GoDirectiveExecBag;
+
+    use Html5\Template\Opt\GoDirectiveExecBag;
 
     class GoWhiteSpaceNode implements GoNode {
 

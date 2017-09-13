@@ -9,8 +9,8 @@
     namespace Html5\Template\Node;
 
 
-    use Html5\Template\Directive\GoDirectiveExecBag;
     use Html5\Template\Directive\GoInlineTextDirective;
+    use Html5\Template\Opt\GoDirectiveExecBag;
 
     class GoTextNode implements GoNode {
 
