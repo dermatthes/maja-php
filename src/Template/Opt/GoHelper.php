@@ -48,5 +48,4 @@ class GoHelper
 
         return implode("\n", $result);
     }
-
 }

@@ -61,17 +61,16 @@
             if ($this instanceof GoCommentNode)
                 return $this->text;
 
-            if (count($this->childs) > 0) {
-                $child = $this->childs[0];
-
-                if ($child instanceof GoTextNode) {
-                    return $child->text;
+            $text = "";
+            foreach ($this->childs as $cur) {
+                if ($cur instanceof GoTextNode) {
+                    $text .=  $cur->text;
                 }
-                if ($child instanceof GoCommentNode) {
-                    return $child->text;
+                if ($cur instanceof GoCommentNode) {
+                    $text .= $cur->text;
                 }
             }
-            return "";
+            return $text;
         }
 
 
