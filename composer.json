@@ -1,8 +1,8 @@
 {
-    "name": "html5/template",
+    "name": "maja/maja-template",
     "type": "library",
     "description": "Inline Templating component",
-    "keywords": ["html5", "template", "html"],
+    "keywords": ["html5", "template", "html", "maja"],
     "homepage": "http://leuffen.de",
     "license": "MIT",
     "authors": [
@@ -18,8 +18,12 @@
         "symfony/yaml": "*",
         "html5/htmlreader": "^1.1"
     },
+    "suggests": {
+        "cebe/markdown": "*"
+    },
     "require-dev": {
-        "nette/tester": "^1.7"
+        "nette/tester": "^1.7",
+        "cebe/markdown": "*"
     },
     "autoload": {
         "psr-4": { "Html5\\Template\\": "src/Template" },

@@ -9,19 +9,21 @@
     namespace Html5\Template\Directive;
 
 
+    use cebe\markdown\GithubMarkdown;
+    use cebe\markdown\Markdown;
+    use cebe\markdown\MarkdownExtra;
     use Html5\Template\Opt\GoDirectiveExecBag;
     use Html5\Template\Opt\GoTemplateDirectiveBag;
     use Html5\Template\Node\GoElementNode;
     use Html5\Template\Node\GoRawHtmlNode;
 
-    class GoHtmlDirective implements GoDirective {
+    class GoMarkdownDirective implements GoDirective {
 
 
 
         public function register(GoTemplateDirectiveBag $bag)
         {
-            $bag->attrToDirective["maja:html"] = $this;
-            $bag->elemToDirective["maja:html"] = $this;
+            $bag->elemToDirective["maja:markdown"] = $this;
             $bag->directiveClassNameMap[get_class($this)] = $this;
         }
 
@@ -33,20 +35,32 @@
         public function exec(GoElementNode $node, array &$scope, &$output, GoDirectiveExecBag $execBag)
         {
 
-            if ($node->ns . ":" .  $node->name === "maja:html") {
-                $expression = $node->attributes["select"];
-            } else {
-                $expression = $node->attributes["maja:html"];
-            }
+            $flavor = @$node->attributes["flavor"];
+            if ($flavor === null)
+                $flavor = "default";
+
+            $flavorMap = [
+                "default" => Markdown::class,
+                "github" => GithubMarkdown::class,
+                "extra" => MarkdownExtra::class
+            ];
+
+            if ( ! isset ($flavorMap[$flavor]))
+                throw new \InvalidArgumentException("maja:markdown flavor='$flavor': Undefined flavor.");
 
 
+            $mp = new $flavorMap[$flavor]();
+            if ( ! $mp instanceof Markdown)
+                throw new \Exception("Markdown parser is not instanceof Markdown");
 
-            $val = $execBag->expressionEvaluator->eval($expression, $scope);
+            $text = $node->getText();
+            $txt = $mp->parse($text);
+            $node->name = "div";
+            $node->ns = null;
+            $node->attributes["_maja_orig"] = "maja:markdown";
+            $node->childs = [ new GoRawHtmlNode((string)$txt) ];
+            return $node;
 
-            $clone = clone $node;
-            if ($val !== null)
-                $clone->childs = [new GoRawHtmlNode($val)];
-            return $clone;
         }
 
     }

@@ -9,6 +9,7 @@
 namespace Html5\Template\Plugin;
 
 
+use HTML5\HTMLReader;
 use Html5\Template\Opt\GoDirectiveExecBag;
 use Html5\Template\Opt\GoTemplateDirectiveBag;
 
@@ -16,6 +17,6 @@ interface GoPlugin
 {
 
 
-    public function register (GoDirectiveExecBag $directiveExecBag, GoTemplateDirectiveBag $goTemplateDirectiveBag);
+    public function register (GoDirectiveExecBag $directiveExecBag, GoTemplateDirectiveBag $goTemplateDirectiveBag, HTMLReader $HTMLReader);
 
 }

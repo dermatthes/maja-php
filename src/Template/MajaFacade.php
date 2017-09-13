@@ -50,7 +50,7 @@
 
         public function addPlugin (GoPlugin $plugin) : self
         {
-            $plugin->register($this->mExecBag, $this->mParser->getDirectiveBag());
+            $plugin->register($this->mExecBag, $this->mParser->getDirectiveBag(), $this->mParser->htmlReader);
             return $this;
         }
 
