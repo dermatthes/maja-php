@@ -13,6 +13,7 @@
     use cebe\markdown\Markdown;
     use cebe\markdown\MarkdownExtra;
     use Html5\Template\Opt\GoDirectiveExecBag;
+    use Html5\Template\Opt\GoHelper;
     use Html5\Template\Opt\GoTemplateDirectiveBag;
     use Html5\Template\Node\GoElementNode;
     use Html5\Template\Node\GoRawHtmlNode;
@@ -53,7 +54,7 @@
             if ( ! $mp instanceof Markdown)
                 throw new \Exception("Markdown parser is not instanceof Markdown");
 
-            $text = $node->getText();
+            $text = GoHelper::StripTextIndention($node->getText());
             $txt = $mp->parse($text);
             $node->name = "div";
             $node->ns = null;
