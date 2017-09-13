@@ -76,7 +76,9 @@
 
             } else {
                 try {
-                    $params = $execBag->dataParse($node->getText(), $parse);
+                    $data = $node->getText();
+                    if (trim ($data) != "")
+                        $params = $execBag->dataParse($node->getText(), $parse);
                 } catch (ParseException $e) {
                     throw new ParseException("Cannot parse: {$e->getMessage()}\n{$node->getText()}", -1, null, null, $e);
                 }
